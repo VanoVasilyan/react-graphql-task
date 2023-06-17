@@ -52,7 +52,7 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
                 {loading && paginatedData.length ? <RingLoader size={80} color="#22A6F2" cssOverride={override} /> :
                     paginatedData.map((node: any) => {
                         const simpleDate = convertToSimpleDate(node.lastCommentDate);
-
+                        
                         return (
                             <StyledSingleRepositoryBlock key={node.id}>
                                 <Link to={`/RespositoryCard/${node.id}`}>
@@ -60,9 +60,9 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
                                 </Link>
                                 <p>{node.description}</p>
                                 <div className='nodeInfo'>
-                                    <div>
+                                    <div className='starBlock'>
                                         <StarIcon />
-                                        {node.stargazerCount}
+                                        <span>{node.stargazerCount}</span>
                                     </div>
                                     <div>Updated on {simpleDate}</div>
                                 </div>
