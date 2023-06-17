@@ -2,7 +2,7 @@ import React, { useEffect, useState, ChangeEvent } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { StyledRepositoryPage, StyledSingleRepositoryBlock } from './RepositoryPage.style';
+import { StyledRepositoryPage, StyledSearchInput, StyledSingleRepositoryBlock } from './RepositoryPage.style';
 
 
 const PaginatedData = ({ data, itemsPerPage }: any) => {
@@ -23,16 +23,16 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
 
     useEffect(() => {
         const results = paginatedData.filter((person: any) =>
-            person.name.toLowerCase().includes(searchTerm)
+            person.name.toLowerCase().includes(searchTerm) && person.description
         );
         setSearchResults(results);
     }, [searchTerm]);
 
     return (
         <div>
-            <input
+            <StyledSearchInput
                 type="text"
-                placeholder="Search"
+                placeholder="Search repository &#128269;"
                 value={searchTerm}
                 onChange={handleChange}
             />
