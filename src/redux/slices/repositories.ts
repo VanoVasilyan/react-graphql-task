@@ -27,7 +27,6 @@ export const searchRepositories = createAsyncThunk('repositories/fetch', async (
     } catch (error) {
         console.error('Error:', error);
     }
-
 })
 
 const initialState = {

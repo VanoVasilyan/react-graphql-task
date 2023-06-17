@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 const StyledRepositoryCard = styled.div`
     display: flex;
     margin: 0 auto;
@@ -21,23 +20,27 @@ const StyledRepositoryCard = styled.div`
         align-items: center;
 
         &>img{
-            max-width: 250px;
+            max-width: 230px;
             border-radius: 50%;
         }
 
         p{
-            margin: 0
+            margin: 5px
         }
 
         .userName{
-            font-size: 24px;
+            font-size: 32px;
             line-height: 1.25;
         }
     }
 
     .repoBlock{
         max-width: 360px;
+        height: 320px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .nodeInfo{
@@ -49,12 +52,13 @@ const StyledRepositoryCard = styled.div`
         font-weight: 600;   
         padding-top:10px;
         border-top: 1px solid grey;
+        border-bottom: 1px solid grey;
     }
 
-    a{
+    a {
        text-decoration: none;
        font-weight: bold;
-       color: #2970D7;
+       color: grey;
 
        &:hover{
         text-decoration: underline;
@@ -69,9 +73,7 @@ const StyledRepositoryCard = styled.div`
         }
     }
 
-    .usedLanguages{
-        border-top: 1px solid grey;
-        
+    .usedLanguages{        
         ol{
             padding-left: 20px;
             line-height: 22px;

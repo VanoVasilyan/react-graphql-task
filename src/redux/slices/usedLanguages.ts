@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GET_USED_LANGUAGES } from '../../queries/queries';
+import { LanguageEdge } from '../../types/globalTypes';
 
 const initialState = {
     languages: [],
@@ -23,7 +24,7 @@ export const getRepositoryLanguages = createAsyncThunk('user/fetchRepositoryLang
         );
         const { data: { data: { repository: { languages: { edges } } } } } = response
 
-        return edges.map((item: any) => item.node)
+        return edges.map((item: LanguageEdge) => item.node)
     } catch (error) {
         console.error('Error:', error);
     }

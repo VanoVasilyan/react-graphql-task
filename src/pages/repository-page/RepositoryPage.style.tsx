@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 const StyledRepositoryPage = styled.div`
    & .child{
     display: flex;

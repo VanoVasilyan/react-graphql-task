@@ -37,27 +37,13 @@ export const GET_SEARCH_REPOSITORIES = `
         }
     }
 `
-export const GET_REPOSITORY_INFO = `
+export const GET_USER_INFO = `
     query($login: String!) {
         user(login: $login) {
             login
             name
             bio
-            email
-            location
-            websiteUrl
             avatarUrl
-            followers {
-                totalCount
-            }
-            repositories(first: 5) {
-                totalCount
-                nodes {
-                name
-                description
-                url
-                }
-            }
         }
     },
 `
