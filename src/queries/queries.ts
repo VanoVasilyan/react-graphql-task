@@ -9,8 +9,26 @@ export const GET_REPOSITORIES = gql`
                 name
                 description
                 url
-                stargazers {
-                        totalCount
+                stargazerCount
+                lastCommentDate: updatedAt
+            }
+            }
+        }
+    }
+`
+
+export const GET_SEARCH_REPOSITORIES = `
+    query($queryString: String!) {
+        search(query: $queryString, type: REPOSITORY, first: 100) {
+            repositoryCount
+                edges {
+                    node {
+                    ... on Repository {
+                        id
+                        name
+                        url
+                        description
+                        stargazerCount
                     }
                 }
             }

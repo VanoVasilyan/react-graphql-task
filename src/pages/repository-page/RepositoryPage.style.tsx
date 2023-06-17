@@ -44,18 +44,27 @@ const StyledRepositoryPage = styled.div`
 `
 
 const StyledSingleRepositoryBlock = styled.div`
-    max-width: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: baseline;
-    width: 100%;
-    border: 1px solid grey;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    color: white;
-    overflow: hidden;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+        border: 1px solid grey;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px;
+        color: white;
+        overflow: hidden;
+
+    .nodeInfo{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        color: dimgrey;
+        font-weight: 600;   
+    }
 
     &>a{
        text-decoration: none;

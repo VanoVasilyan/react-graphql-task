@@ -1,14 +1,19 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
-import ReactPaginate from 'react-paginate';
-import { useSelector } from 'react-redux';
+import React, { useState, ChangeEvent, CSSProperties } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RingLoader } from 'react-spinners';
+import ReactPaginate from 'react-paginate';
+import { searchRepositories } from '../../redux/slices/repositories';
+import { StarIcon } from '../../assets';
+import { AppDispatch } from '../../redux/store';
+import { convertToSimpleDate } from '../../helpers/helper';
 import { StyledRepositoryPage, StyledSearchInput, StyledSingleRepositoryBlock } from './RepositoryPage.style';
 
-
 const PaginatedData = ({ data, itemsPerPage }: any) => {
+    const dispatch = useDispatch<AppDispatch>();
+    const loading = useSelector((state: any) => state.reposReducer.loading);
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
 
     const handlePageChange = (selectedPage: any) => {
         setCurrentPage(selectedPage.selected);
@@ -21,44 +26,49 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
         setSearchTerm(e.target.value);
     };
 
-    useEffect(() => {
-        const results = paginatedData.filter((person: any) =>
-            person.name.toLowerCase().includes(searchTerm) && person.description
-        );
-        setSearchResults(results);
-    }, [searchTerm]);
+    const handleSearchSubmit = async (e: any) => {
+        e.preventDefault();
+
+        await dispatch(searchRepositories(searchTerm));
+    };
+
+    const override: CSSProperties = {
+        position: "fixed",
+        top: "40%",
+        left: "50%"
+    };
 
     return (
         <div>
-            <StyledSearchInput
-                type="text"
-                placeholder="Search repository &#128269;"
-                value={searchTerm}
-                onChange={handleChange}
-            />
+            <form onSubmit={handleSearchSubmit}>
+                <StyledSearchInput
+                    type="text"
+                    placeholder="Search repository &#128269;"
+                    value={searchTerm}
+                    onChange={handleChange}
+                />
+            </form>
             <div className='child'>
-                {
-                    searchResults.length && searchTerm ? (
-                        searchResults.map((node: any) => (
+                {loading && paginatedData.length ? <RingLoader size={80} color="#22A6F2" cssOverride={override} /> :
+                    paginatedData.map((node: any) => {
+                        const simpleDate = convertToSimpleDate(node.lastCommentDate);
+
+                        return (
                             <StyledSingleRepositoryBlock key={node.id}>
                                 <Link to={`/RespositoryCard/${node.id}`}>
                                     {node.name}
                                 </Link>
                                 <p>{node.description}</p>
-                                <span>⭐ {node.stargazers.totalCount}</span>
+                                <div className='nodeInfo'>
+                                    <div>
+                                        <StarIcon />
+                                        {node.stargazerCount}
+                                    </div>
+                                    <div>Updated on {simpleDate}</div>
+                                </div>
                             </StyledSingleRepositoryBlock>
-                        ))
-                    ) : (
-                        paginatedData.map((node: any) => (
-                            <StyledSingleRepositoryBlock key={node.id}>
-                                <Link to={`/RespositoryCard/${node.id}`}>
-                                    {node.name}
-                                </Link>
-                                <p>{node.description}</p>
-                                <span>⭐ {node.stargazers.totalCount}</span>
-                            </StyledSingleRepositoryBlock>
-                        ))
-                    )
+                        )
+                    })
                 }
             </div>
             <ReactPaginate
