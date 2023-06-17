@@ -47,6 +47,8 @@ const StyledRepositoryCard = styled.div`
         align-items: baseline;
         color: dimgrey;
         font-weight: 600;   
+        padding-top:10px;
+        border-top: 1px solid grey;
     }
 
     a{
@@ -60,9 +62,19 @@ const StyledRepositoryCard = styled.div`
     }
     
     .starBlock{
+        margin-bottom:10px;
         max-width: 80px;
         & > span{
             margin: 0 10px;
+        }
+    }
+
+    .usedLanguages{
+        border-top: 1px solid grey;
+        
+        ol{
+            padding-left: 20px;
+            line-height: 22px;
         }
     }
 `

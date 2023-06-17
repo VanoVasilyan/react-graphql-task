@@ -61,3 +61,17 @@ export const GET_REPOSITORY_INFO = `
         }
     },
 `
+
+export const GET_USED_LANGUAGES = `
+    query($owner: String!, $name: String!) {
+        repository(owner: $owner, name: $name) {
+        languages(first: 10) {
+            edges {
+            node {
+                name
+            }
+            }
+        }
+       }
+    }
+`
