@@ -1,21 +1,22 @@
-import React, { useState, ChangeEvent, CSSProperties } from 'react';
+import React, { useState, ChangeEvent, CSSProperties, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import ReactPaginate from 'react-paginate';
+import { AppDispatch } from '../../redux/store';
 import { searchRepositories } from '../../redux/slices/repositories';
 import { StarIcon } from '../../assets';
-import { AppDispatch } from '../../redux/store';
 import { convertToSimpleDate } from '../../helpers/helper';
+import { PaginatedDataProps, RepositoryNode, RootState, SelectedPage } from '../../types/globalTypes';
 import { StyledRepositoryPage, StyledSearchInput, StyledSingleRepositoryBlock } from './RepositoryPage.style';
 
-const PaginatedData = ({ data, itemsPerPage }: any) => {
+const PaginatedData = ({ data, itemsPerPage }: PaginatedDataProps) => {
     const dispatch = useDispatch<AppDispatch>();
-    const loading = useSelector((state: any) => state.reposReducer.loading);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [searchTerm, setSearchTerm] = useState("");
+    const loading = useSelector((state: RootState) => state.reposReducer.loading);
+    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const handlePageChange = (selectedPage: any) => {
+    const handlePageChange = (selectedPage: SelectedPage) => {
         setCurrentPage(selectedPage.selected);
     };
 
@@ -26,7 +27,7 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
         setSearchTerm(e.target.value);
     };
 
-    const handleSearchSubmit = async (e: any) => {
+    const handleSearchSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         await dispatch(searchRepositories(searchTerm));
@@ -50,9 +51,9 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
             </form>
             <div className='child'>
                 {loading && paginatedData.length ? <RingLoader size={80} color="#22A6F2" cssOverride={override} /> :
-                    paginatedData.map((node: any) => {
+                    paginatedData.map((node: RepositoryNode) => {
                         const simpleDate = convertToSimpleDate(node.lastCommentDate);
-                        
+
                         return (
                             <StyledSingleRepositoryBlock key={node.id}>
                                 <Link to={`/RespositoryCard/${node.id}`}>
@@ -87,7 +88,7 @@ const PaginatedData = ({ data, itemsPerPage }: any) => {
 };
 
 const RepositoryPage: React.FC = () => {
-    const nodes = useSelector((state: any) => state.reposReducer.repositories);
+    const nodes = useSelector((state: RootState) => state.reposReducer.repositories);
 
     return (
         <StyledRepositoryPage>

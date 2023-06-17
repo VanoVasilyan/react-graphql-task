@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { GET_REPOSITORY_INFO } from '../../queries/queries';
+import { GET_USER_INFO } from '../../queries/queries';
 
 const initialState = {
     user: [],
@@ -11,7 +11,7 @@ export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async (usern
         const response = await axios.post(
             'https://api.github.com/graphql',
             {
-                query: GET_REPOSITORY_INFO,
+                query: GET_USER_INFO,
                 variables: { login: username },
             },
             {
