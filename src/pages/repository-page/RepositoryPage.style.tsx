@@ -11,6 +11,9 @@ const StyledRepositoryPage = styled.div`
         justify-content: center;
         list-style: none;
         padding: 0;
+        position: fixed;
+        bottom: 2%;
+        left: 40%;
     }
     
     .pagination li {
@@ -19,11 +22,10 @@ const StyledRepositoryPage = styled.div`
     }
     
     .pagination a {
-        cursor:pointer;
+        cursor: pointer;
         padding: 5px 10px;
-        border: 1px solid #ccc;
         text-decoration: none;
-        color: #333;
+        color: #1C70D7;
     }
     
     .pagination a:hover {
@@ -43,13 +45,17 @@ const StyledRepositoryPage = styled.div`
 
 const StyledSingleRepositoryBlock = styled.div`
     max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
     width: 100%;
     border: 1px solid grey;
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
     color: white;
-    overflow:hidden;
+    overflow: hidden;
 
     &>a{
        text-decoration: none;
@@ -62,4 +68,23 @@ const StyledSingleRepositoryBlock = styled.div`
     }
 `
 
-export { StyledRepositoryPage, StyledSingleRepositoryBlock };
+const StyledSearchInput = styled.input`
+    display: block;
+    color: white;
+    margin: 2rem auto;
+    font-size: 18px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid darkcyan;
+    padding: 10px;
+    outline: none;
+    border-radius: 17px;
+    background: #0D1117;
+
+    &::placeholder{
+        color: rgba(28, 112, 215, 0.8);
+    }
+`
+
+export { StyledRepositoryPage, StyledSingleRepositoryBlock, StyledSearchInput };
