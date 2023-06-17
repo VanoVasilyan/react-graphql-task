@@ -75,6 +75,12 @@ const StyledSingleRepositoryBlock = styled.div`
         text-decoration: underline;
        }
     }
+    .starBlock{
+        max-width: 80px;
+        & > span{
+            margin-left: 10px;
+        }
+    }
 `
 
 const StyledSearchInput = styled.input`
